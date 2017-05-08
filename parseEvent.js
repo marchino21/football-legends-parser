@@ -8,6 +8,7 @@ let EventSchema = new mongoose.Schema({
     level: Number,
 	image: String,
 	variants: [String],
+    question: String, 
 	answer: String,
 }, { _id: false, versionKey: false})
 let Event = mongoose.model('Event', EventSchema);
@@ -42,7 +43,6 @@ for(let i = 0; i<10; i++) {
     let bitmap = fs.readFileSync(`/home/vasyl/Desktop/Projects/DB/events/level_${level}_resized/${i+1}.jpg`);
     images.push(new Buffer(bitmap).toString('base64'));
 }
-
 let tasks = [];
 
 for(let i = 0; i<10; i++) {
@@ -59,7 +59,7 @@ for(let i = 0; i<10; i++) {
 Event.insertMany(tasks, (err, tasks) => {
     if(err) console.log(err);
     else {
-        console.log(tasks[5]);
+        console.log(JSON.stringify(tasks[5]));
         mongoose.disconnect();
     }
 });
